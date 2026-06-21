@@ -11,7 +11,6 @@ jobs:
 postman-test:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
@@ -64,4 +63,3 @@ steps:
   - name: Fail pipeline if Newman failed
     if: steps.newman.outcome == 'failure'
     run: exit 1
-```
