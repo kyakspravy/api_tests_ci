@@ -1,20 +1,36 @@
 {
   "info": {
-    "_postman_id": "d018ac2a-bd48-455f-9821-f2148718b772",
-    "name": "NASA Demo",
+    "_postman_id": "5277c056-96c4-4e0e-8c20-5ee5492cb384",
+    "name": "Dog API Project",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "55301486",
-    "_collection_link": "https://go.postman.co/collection/55301486-d018ac2a-bd48-455f-9821-f2148718b772?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/55301486-5277c056-96c4-4e0e-8c20-5ee5492cb384?source=collection_link"
   },
   "item": [
     {
-      "name": "NASA APOD - Full data request",
+      "name": "getRandomdogImage",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "getMultipledogImage",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "cURL imported",
       "request": {
         "method": "GET",
         "header": [
           {
             "key": "accept",
-            "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            "value": "application/json, text/javascript, */*; q=0.01"
           },
           {
             "key": "accept-language",
@@ -30,7 +46,11 @@
           },
           {
             "key": "priority",
-            "value": "u=0, i"
+            "value": "u=1, i"
+          },
+          {
+            "key": "referer",
+            "value": "https://dog.ceo/dog-api/"
           },
           {
             "key": "sec-ch-ua",
@@ -46,258 +66,76 @@
           },
           {
             "key": "sec-fetch-dest",
-            "value": "document"
+            "value": "empty"
           },
           {
             "key": "sec-fetch-mode",
-            "value": "navigate"
+            "value": "cors"
           },
           {
             "key": "sec-fetch-site",
-            "value": "none"
-          },
-          {
-            "key": "sec-fetch-user",
-            "value": "?1"
-          },
-          {
-            "key": "upgrade-insecure-requests",
-            "value": "1"
+            "value": "same-origin"
           },
           {
             "key": "user-agent",
             "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
           },
           {
-            "key": "Cookie",
-            "value": "_ga=GA1.1.1003769068.1781967066; _ga_CSLL4ZEK4L=GS2.1.s1781967066$o1$g1$t1781967240$j60$l0$h0"
-          }
-        ],
-        "url": {
-          "raw": "https://api.nasa.gov/planetary/apod?api_key=JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM",
-          "protocol": "https",
-          "host": [
-            "api",
-            "nasa",
-            "gov"
-          ],
-          "path": [
-            "planetary",
-            "apod"
-          ],
-          "query": [
-            {
-              "key": "api_key",
-              "value": "JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM"
-            }
-          ]
-        },
-        "description": "Generated from cURL: curl 'https://api.nasa.gov/planetary/apod?api_key=JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM' \\\n  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \\\n  -H 'accept-language: en-US,en;q=0.9,uk;q=0.8,uk-UA;q=0.7,de;q=0.6,ru;q=0.5' \\\n  -H 'cache-control: no-cache' \\\n  -b '_ga=GA1.1.1003769068.1781967066; _ga_CSLL4ZEK4L=GS2.1.s1781967066$o1$g1$t1781967240$j60$l0$h0' \\\n  -H 'pragma: no-cache' \\\n  -H 'priority: u=0, i' \\\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: document' \\\n  -H 'sec-fetch-mode: navigate' \\\n  -H 'sec-fetch-site: none' \\\n  -H 'sec-fetch-user: ?1' \\\n  -H 'upgrade-insecure-requests: 1' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36'"
-      },
-      "response": []
-    },
-    {
-      "name": "NASA APOD - Minimal JSON Request",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});"
-            ],
-            "type": "text/javascript",
-            "packages": {},
-            "requests": {}
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "{{nasa_base_url}}/apod?api_key={{secret_key}}",
-          "host": [
-            "{{nasa_base_url}}"
-          ],
-          "path": [
-            "apod"
-          ],
-          "query": [
-            {
-              "key": "api_key",
-              "value": "{{secret_key}}"
-            }
-          ]
-        },
-        "description": "Generated from cURL: curl \"https://api.nasa.gov/planetary/apod?api_key=JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM\" \\\n  -H \"Accept: application/json\""
-      },
-      "response": [
-        {
-          "name": "cleaned up curl with AI",
-          "originalRequest": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "https://api.nasa.gov/planetary/apod?api_key=JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM",
-              "protocol": "https",
-              "host": [
-                "api",
-                "nasa",
-                "gov"
-              ],
-              "path": [
-                "planetary",
-                "apod"
-              ],
-              "query": [
-                {
-                  "key": "api_key",
-                  "value": "JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM"
-                }
-              ]
-            }
+            "key": "x-requested-with",
+            "value": "XMLHttpRequest"
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": ":status",
-              "value": 200
-            },
-            {
-              "key": "date",
-              "value": "Sat, 20 Jun 2026 15:07:03 GMT"
-            },
-            {
-              "key": "content-type",
-              "value": "application/json"
-            },
-            {
-              "key": "vary",
-              "value": "Accept-Encoding"
-            },
-            {
-              "key": "access-control-allow-origin",
-              "value": "*"
-            },
-            {
-              "key": "access-control-expose-headers",
-              "value": "X-RateLimit-Limit, X-RateLimit-Remaining"
-            },
-            {
-              "key": "age",
-              "value": "0"
-            },
-            {
-              "key": "referrer-policy",
-              "value": "strict-origin-when-cross-origin"
-            },
-            {
-              "key": "strict-transport-security",
-              "value": "max-age=31536000; includeSubDomains; preload"
-            },
-            {
-              "key": "via",
-              "value": "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])"
-            },
-            {
-              "key": "x-api-umbrella-request-id",
-              "value": "cusm92e4hlc097bk9jb0"
-            },
-            {
-              "key": "x-cache",
-              "value": "MISS"
-            },
-            {
-              "key": "x-content-type-options",
-              "value": "nosniff"
-            },
-            {
-              "key": "x-powered-by",
-              "value": "appdat"
-            },
-            {
-              "key": "x-ratelimit-limit",
-              "value": "4000"
-            },
-            {
-              "key": "x-ratelimit-remaining",
-              "value": "3996"
-            },
-            {
-              "key": "x-using-nginx-controller",
-              "value": "true"
-            },
-            {
-              "key": "x-vcap-request-id",
-              "value": "5032ff11-a60e-4365-5f66-ea65c9ba9b57"
-            },
-            {
-              "key": "x-xss-protection",
-              "value": "1; mode=block"
-            },
-            {
-              "key": "x-frame-options",
-              "value": "SAMEORIGIN"
-            },
-            {
-              "key": "content-encoding",
-              "value": "gzip"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"copyright\": \"Debra Ceravolo\",\n    \"date\": \"2026-06-20\",\n    \"explanation\": \"Venus is now appearing on the celestial stage as Earth's brilliant evening star, performing with the Moon, other wandering planets, and bright stars in western skies. For evening sky gazers on June 17, the celestial beacon rose after sunset close by a young, slender, crescent Moon. But from some locations the Moon could be seen to occult or pass in front of Venus. And from a backyard observatory in southern British Columbia, Canada, the lunar occultation was played out in daylight. This stunning telescopic snapshot captured a scene in dramatically cloudy skies, following Venus' hour long disappearance, as the evening star emerged beyond the bright lunar limb.\",\n    \"hdurl\": \"https://apod.nasa.gov/apod/image/2606/Venus_Moon_2026_06_17.jpg\",\n    \"media_type\": \"image\",\n    \"service_version\": \"v1\",\n    \"title\": \"Daytime Moon Meets Evening Star\",\n    \"url\": \"https://apod.nasa.gov/apod/image/2606/Venus_Moon_2026_06_17_1024.jpg\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "NASA APOD - Range Request(Date Filter)",
-      "request": {
-        "method": "GET",
-        "header": [],
+          {
+            "key": "Cookie",
+            "value": "_ga=GA1.2.1857496682.1781949086; _gid=GA1.2.33758683.1781949086; _ga_4SQLQ0FQQ0=GS2.2.s1781949086$o1$g0$t1781949086$j60$l0$h0"
+          }
+        ],
         "url": {
-          "raw": "https://api.nasa.gov/planetary/apod?start_date=2025-09-24&end_date=2025-09-26&api_key=DEMO_KEY",
+          "raw": "https://dog.ceo/api/breeds/image/random",
           "protocol": "https",
           "host": [
-            "api",
-            "nasa",
-            "gov"
+            "dog",
+            "ceo"
           ],
           "path": [
-            "planetary",
-            "apod"
-          ],
-          "query": [
-            {
-              "key": "start_date",
-              "value": "2025-09-24"
-            },
-            {
-              "key": "end_date",
-              "value": "2025-09-26"
-            },
-            {
-              "key": "api_key",
-              "value": "DEMO_KEY"
-            }
+            "api",
+            "breeds",
+            "image",
+            "random"
           ]
         },
-        "description": "Generated from cURL: curl \"https://api.nasa.gov/planetary/apod?start_date=2025-09-24&end_date=2025-09-26&api_key=DEMO_KEY\""
+        "description": "Generated from cURL: curl 'https://dog.ceo/api/breeds/image/random' \\\n  -H 'accept: application/json, text/javascript, */*; q=0.01' \\\n  -H 'accept-language: en-US,en;q=0.9,uk;q=0.8,uk-UA;q=0.7,de;q=0.6,ru;q=0.5' \\\n  -H 'cache-control: no-cache' \\\n  -b '_ga=GA1.2.1857496682.1781949086; _gid=GA1.2.33758683.1781949086; _ga_4SQLQ0FQQ0=GS2.2.s1781949086$o1$g0$t1781949086$j60$l0$h0' \\\n  -H 'pragma: no-cache' \\\n  -H 'priority: u=1, i' \\\n  -H 'referer: https://dog.ceo/dog-api/' \\\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"149\", \"Chromium\";v=\"149\", \"Not)A;Brand\";v=\"24\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: empty' \\\n  -H 'sec-fetch-mode: cors' \\\n  -H 'sec-fetch-site: same-origin' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36' \\\n  -H 'x-requested-with: XMLHttpRequest'"
       },
       "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
     }
   ]
 }
