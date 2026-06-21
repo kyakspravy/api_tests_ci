@@ -1,64 +1,67 @@
 name: Postman Newman Tests
 
 on:
-  push:
-  workflow_dispatch:
+push:
+workflow_dispatch:
 
-permissions: 
+permissions:
 contents: write
 
 jobs:
-  postman-test:
-    runs-on: ubuntu-latest
+postman-test:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+```
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
 
-      - name: Setup Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
+  - name: Setup Node.js 24
+    uses: actions/setup-node@v4
+    with:
+      node-version: '24'
 
-      - name: Install Newman and reporter
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
+  - name: Install Newman and reporter
+    run: |
+      npm install -g newman
+      npm install -g newman-reporter-htmlextra
 
-      - name: Run Postman collection
-        continue-on-error: true
-        id: newman
-        run: |
-          mkdir -p reports
-          newman run test/collection.json \
-            -e test/env.json \
-            --env-var "secret_key=${{ secrets.NASA_API_KEY }}" \
-            -r cli,htmlextra \
-            --reporter-htmlextra-export reports/index.html \
-            --reporter-htmlextra-title "Postman Test Report" \
-            --reporter-htmlextra-logs
+  - name: Run Postman collection
+    id: newman
+    continue-on-error: true
+    run: |
+      mkdir -p reports
 
-      - name: Upload Newman HTML report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: postman-test-report
-          path: reports/index.html
+      newman run test/collection.json \
+        -e test/env.json \
+        --env-var "secret_key=${{ secrets.NASA_API_KEY }}" \
+        -r cli,htmlextra \
+        --reporter-htmlextra-export reports/index.html \
+        --reporter-htmlextra-title "Postman Test Report" \
+        --reporter-htmlextra-logs
 
-      - name: Upload Newman log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: postman-newman-log
-          path: newman/*.json
+  - name: Upload Newman HTML report
+    if: always()
+    uses: actions/upload-artifact@v4
+    with:
+      name: postman-test-report
+      path: reports/index.html
 
-      - name: Deploy report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports
+  - name: Upload Newman log
+    if: always()
+    uses: actions/upload-artifact@v4
+    with:
+      name: postman-newman-log
+      path: newman/*.json
 
-      - name: Fail pipeline if Newman failed
-        if: steps.newman.outcome == 'failure'
-        run: exit 1
+  - name: Deploy report to GitHub Pages
+    if: always()
+    uses: peaceiris/actions-gh-pages@v3
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      publish_dir: ./reports
+
+  - name: Fail pipeline if Newman failed
+    if: steps.newman.outcome == 'failure'
+    run: exit 1
+```
