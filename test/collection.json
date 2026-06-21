@@ -8,7 +8,7 @@
   },
   "item": [
     {
-      "name": "get short APOD",
+      "name": "NASA APOD - Full data request",
       "request": {
         "method": "GET",
         "header": [
@@ -97,7 +97,22 @@
       "response": []
     },
     {
-      "name": "cleaned up curl with AI(get full ADOD)",
+      "name": "NASA APOD - Minimal JSON Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "header": [
@@ -107,21 +122,17 @@
           }
         ],
         "url": {
-          "raw": "https://api.nasa.gov/planetary/apod?api_key=JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM",
-          "protocol": "https",
+          "raw": "{{nasa_base_url}}/apod?api_key={{secret_key}}",
           "host": [
-            "api",
-            "nasa",
-            "gov"
+            "{{nasa_base_url}}"
           ],
           "path": [
-            "planetary",
             "apod"
           ],
           "query": [
             {
               "key": "api_key",
-              "value": "JMk1fUdYsIsbHOIvCMLrhTu0FaIQvNdt4TovSkaM"
+              "value": "{{secret_key}}"
             }
           ]
         },
@@ -253,7 +264,7 @@
       ]
     },
     {
-      "name": "https://api.nasa.gov/planetary/apod?start_date=2025-09-24&end_date=2025-09-26&api_key=DEMO_KEY",
+      "name": "NASA APOD - Range Request(Date Filter)",
       "request": {
         "method": "GET",
         "header": [],
