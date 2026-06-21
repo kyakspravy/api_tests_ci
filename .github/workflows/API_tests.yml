@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  postman-tests:
+  postman-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +24,8 @@ jobs:
       - name: Run Postman collection
         run: |
           newman run test/collection.json \
-            -e tests/env.json \
+            -e test
+            /env.json \
             --env-var "secret_key=${{ secrets.NASA_API_KEY }}" \
             -r cli,htmlextra \
             --reporter-htmlextra-export test-report.html \
