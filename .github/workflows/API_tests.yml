@@ -12,10 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 24
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
 
       - name: Install Newman and reporter
         run: |
@@ -25,11 +25,21 @@ jobs:
       - name: Run Postman collection
         run: |
           newman run test/collection.json \
-            -r htmlextra \
-            --reporter-htmlextra-export test-report.html
+            -r cli,htmlextra \
+            --reporter-htmlextra-export test-report.html \
+            --reporter-htmlextra-title "Postman Test Report" \
+            --reporter-htmlextra-logs
 
-      - name: Upload HTML report
+      - name: Upload Newman HTML report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: postman-test-report
           path: test-report.html
+
+      - name: Upload Newman log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-newman-log
+          path: newman/*.json
