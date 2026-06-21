@@ -23,12 +23,15 @@ jobs:
           npm install -g newman-reporter-htmlextra
 
       - name: Run Postman collection
+        continue-on-error: true
+        id: newman
         run: |
+          mkdir -p reports
           newman run test/collection.json \
             -e test/env.json \
             --env-var "secret_key=${{ secrets.NASA_API_KEY }}" \
             -r cli,htmlextra \
-            --reporter-htmlextra-export test-report.html \
+            --reporter-htmlextra-export reports/index.html \
             --reporter-htmlextra-title "Postman Test Report" \
             --reporter-htmlextra-logs
 
@@ -37,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: postman-test-report
-          path: test-report.html
+          path: reports/index.html
 
       - name: Upload Newman log
         if: always()
@@ -45,3 +48,14 @@ jobs:
         with:
           name: postman-newman-log
           path: newman/*.json
+
+      - name: Deploy report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+
+      - name: Fail pipeline if Newman failed
+        if: steps.newman.outcome == 'failure'
+        run: exit 1
